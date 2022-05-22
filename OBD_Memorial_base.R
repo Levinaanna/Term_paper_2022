@@ -12,7 +12,7 @@ Chelovek_donesenie_reduced <- head(Chelovek_donesenie, 5000)
 
 summary(as.factor(Chelovek_donesenie$prichina_vibitiya))
 
-#Соединяю файлы человек-донесение и человек-дополнительное донесение
+#Соединяем файлы человек-донесение и человек-дополнительное донесение
 colnames(Chelovek_dopolnitelnoe_donesenie)
 colnames(Chelovek_donesenie)
 
@@ -35,7 +35,7 @@ doneseniya_obd_reasons <- doneseniya_obd %>%
 doneseniya_obd_reasons <- doneseniya_obd_reasons %>%
   filter(vibitiye_dezertirstvo == 1 | vibitiye_only_dezertirstvo == 1 | vibitiye_nakazanie == 1 | vibitiye_plen == 1)
 
-# Добавляем пробел для места призыва вроде РВКМосква
+# Добавляем пробел для места призыва вроде "РВКМосква"
 doneseniya_obd_reasons <- doneseniya_obd_reasons %>%
   mutate(add_space = grepl("РВК[А-Я]", data_i_mesto_priziva),
          data_i_mesto_priziva_changed = ifelse(add_space, gsub("(.*)(РВК)([А-Я].*)", "\\1\\2, \\3", data_i_mesto_priziva), data_i_mesto_priziva)) %>%
@@ -73,6 +73,7 @@ doneseniya_obd_reasons <- left_join(doneseniya_obd_reasons,
                                     by = "region")
 doneseniya_obd_reasons <- doneseniya_obd_reasons %>%
   filter(region != "")
+
 #Проверяем, все ли уникальные названия регионов скорректированны
 doneseniya_obd_reasons %>% filter(is.na(is_present)) %>% nrow() == 0
 doneseniya_obd_reasons <- doneseniya_obd_reasons %>% select(-is_present)
@@ -81,7 +82,7 @@ doneseniya_obd_reasons <- doneseniya_obd_reasons %>% select(-is_present)
 doneseniya_obd_reasons <- doneseniya_obd_reasons %>%
   filter(!is.na(region_corrected))
 
-#Формирую итоговый файл
+#Формируем итоговый файл
 reasons_final <- doneseniya_obd_reasons %>%
   rename(`Регион 1937-1940` = region_corrected) %>%
   select(id, `Регион 1937-1940`, vibitiye_dezertirstvo, vibitiye_only_dezertirstvo, vibitiye_nakazanie,
