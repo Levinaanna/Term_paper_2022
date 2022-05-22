@@ -62,7 +62,7 @@ regions_research %>%
   unique()%>% 
   length() == nrow(regions_research)
 
-# Формирую итоговый файл, собирая данные
+# Формируем итоговый файл, собирая данные
 repressions_pop <- memorial_repressions_old_regions %>%
   rename(`Количество репрессированных в 1937 и 1938 по Мемориалу` = num_repress) %>%
   left_join(regions_research, by = 'Регион 1937-1940') %>%
