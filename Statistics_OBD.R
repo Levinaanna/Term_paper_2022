@@ -3,8 +3,10 @@ library(tidyverse)
 
 # Подгружаем данные по репрессиям
 repressions_pop <- read_delim("/Users/annalevina/Desktop/Data/Международный мемориал/репрессии.csv", delim = ';')
+
 # Подгружаем данные по выбытиям
 reasons_final <- read_delim("/Users/annalevina/Desktop/Data/ОБД/reasons_final.csv", delim = ';')
+
 # Подгружаем данные по численности населения
 regions_research <- read_delim("/Users/annalevina/Desktop/Data/остальное/regions_research.csv", delim = ';')
 regions_research <- regions_research %>% filter(` РСФСР` == 1) %>%
@@ -190,7 +192,7 @@ data_test%>%
   theme(axis.text.y = element_text(colour = "black"), axis.text.x = element_text(colour = "black"),
         axis.title.y = element_text(size = 10), axis.title.x = element_text(size = 10))
 
-# Корреляция (да)
+# Корреляция (значима)
 cor.test(data_test$`Количество репрессированных в 1937 и 1938 по Мемориалу на душу населения`,
          data_test$`Количество плененных на душу населения`)
 cor.test(data_test$`Количество репрессированных в 1937 и 1938 по Мемориалу на душу населения`,
