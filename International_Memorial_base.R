@@ -56,14 +56,13 @@ regions_research <- regions_research %>%
   filter(` РСФСР` == 1) %>% #Выбираем регионоы РСФСР
   select(`Регион 1937-1940`, `Население по переписи 1939 г. `, `арестовано в 1937 и 1938 по Мозохину`) %>%
   unique()
-
 #Проверка отсутствия повторяющихся регионов
 regions_research %>% 
   pull(`Регион 1937-1940`)%>%
   unique()%>% 
   length() == nrow(regions_research)
 
-# Формируем итоговый файл, собирая данные
+# Формирую итоговый файл, собирая данные
 repressions_pop <- memorial_repressions_old_regions %>%
   rename(`Количество репрессированных в 1937 и 1938 по Мемориалу` = num_repress) %>%
   left_join(regions_research, by = 'Регион 1937-1940') %>%
